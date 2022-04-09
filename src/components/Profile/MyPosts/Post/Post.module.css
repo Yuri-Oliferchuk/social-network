@@ -1,8 +1,27 @@
 .item {
+    display: grid;
+    grid-template-areas: 
+        "ava text"
+        "likes likes";
+    grid-template-columns: 60px auto;
+    grid-template-rows: 60px 20px;
     color: brown;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .item img {
+    grid-area: ava;
     width: 50px;
     margin: 5px;
+}
+
+.text {
+    grid-area: text;
+    color: black;
+}
+
+.likes {
+    grid-area: likes;
+    margin-left: 10px;
 }
