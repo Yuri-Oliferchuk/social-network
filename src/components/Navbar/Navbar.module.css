@@ -8,10 +8,22 @@
 }
 
 .item a {
+    display: grid;
     color: white;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
     text-decoration: none;
+    background-color: darkgreen;
+    padding: 10px;
+    margin: 2px;
+    line-height: 15px;
+    border-radius: 10px;
+    box-shadow: inset -3px -3px 10px rgba(0,0,0, 0.8);
+    user-select: none;
 }
 
 .item a.active {
     color: gold;
+    background-color: darkolivegreen;
+    box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
 }

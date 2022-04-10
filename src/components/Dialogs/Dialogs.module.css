@@ -12,12 +12,28 @@ a {
 
 .dialogsItems {
     grid-area: dialogs;
+    display: grid;
+    justify-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em;
+    line-height: 2em;
 }
 
 .dialogsItems .active {
-    color: gold;
+    font-weight: bold;
+    font-size: 1.6em;
+    color: black;
 }
 
 .messages {
     grid-area: messages;
+    display: flex;
+    align-items: start;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em;
+    line-height: 1.3em;
+    align-items: start;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 0.4em;
 }

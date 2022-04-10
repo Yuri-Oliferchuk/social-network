@@ -1,3 +1,13 @@
+.myPosts {
+    margin-left: 10px;
+}
+
+.myPostName{
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .item {
     color: brown;
 }
