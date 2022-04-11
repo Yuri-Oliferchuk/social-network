@@ -13,12 +13,9 @@ let rerenderTree = () => {
     root.render(
     <React.StrictMode>
       <Router>
-          <App state={store.getState()} 
-               addPost={store.addPost.bind(store)} 
-               updateNewPostText={store.updateNewPostText.bind(store)}
-               addMessage={store.addMessage.bind(store)}
-               updateNewPostMessage={store.updateNewPostMessage.bind(store)}
-                />    
+          <App store={store}
+               state={store.getState()} 
+               dispatch={store.dispatch.bind(store)} />    
       </Router>
     </React.StrictMode>);
 }
