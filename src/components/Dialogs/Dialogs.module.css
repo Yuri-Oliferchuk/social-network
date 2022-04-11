@@ -2,6 +2,7 @@
     display: grid;
     grid-template-areas: "dialogs messages";
     grid-template-columns: 2fr 10fr;
+    align-items: start;
     padding: 15px;
 }
 
