@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { addMessageCreator, updateNewMessageCreator } from "../../redux/dialogs-reducer";
 import style from './Dialogs.module.css';
 
 const DialogItem = (props) =>{
@@ -19,19 +18,16 @@ const Message = (props) => {
 }
 
 const Dialogs = (props) => {
+    let dialogsElements = props.state.dialogs.map(d => <DialogItem id={d.id} userName={d.name} key={d.id}/>)
+    let messagesElements = props.state.messages.map(m => <Message message={m.message} key={m.id}/>)
 
-    let state = props.store.getState().dialogsPage;
-
-    let dialogsElements = state.dialogs.map(d => <DialogItem id={d.id} userName={d.name} key={d.id}/>)
-    let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id}/>)
-
-    const addMessage = () => {
-        props.store.dispatch(addMessageCreator());
+    const onAddMessage = () => {
+        props.addMessage();
     }
 
-    const updateNewMessageBody = (e) => {
+    const onUpdateNewMessageBody = (e) => {
         let text = e.target.value;
-        props.store.dispatch(updateNewMessageCreator(text));
+        props.updateNewMessageBody(text);
     }
     return (
         <div className={style.dialogs}>
@@ -44,12 +40,12 @@ const Dialogs = (props) => {
                 </div>
                 <div>
                     <div>
-                        <textarea value={state.newMessageBody} 
-                                  onChange={updateNewMessageBody}
+                        <textarea value={props.state.newMessageBody} 
+                                  onChange={onUpdateNewMessageBody}
                                   placeholder='Enter your message' />
                     </div>
                     <div>
-                        <button onClick={addMessage}>Add message</button>
+                        <button onClick={onAddMessage}>Add message</button>
                     </div>
                 </div>
             </div>
