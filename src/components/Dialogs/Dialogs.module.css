@@ -1,7 +1,7 @@
 .dialogs {
     display: grid;
     grid-template-areas: "dialogs messages";
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 3fr 10fr;
     align-items: start;
     padding: 15px;
 }
@@ -22,7 +22,7 @@ a {
 
 .dialogsItems .active {
     font-weight: bold;
-    font-size: 1.6em;
+    font-size: 1.5em;
     color: black;
 }
 
@@ -37,4 +37,5 @@ a {
     flex-direction: column;
     justify-content: flex-start;
     margin-top: 0.4em;
+    margin-left: 20px;
 }
