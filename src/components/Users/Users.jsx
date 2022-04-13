@@ -1,14 +1,15 @@
+import axios from "axios";
 import React from "react";
 import style from "./Users.module.css"
+import userPhoto from "../../assets/images/ava.png"
 
 const Users = (props) => {
     
     if (props.users.length === 0) {
-        props.setUsers([
-            {id: 1, followed: true, photoUrl: '../../ava.png', fullName:'Yuriy', status: 'I am a BOS', location: {city: 'Kalush', country: 'Ukraine'}},
-            {id: 2, followed: true, photoUrl: '../../ava.png', fullName:'Lena', status: 'I am a BOS wife', location: {city: 'Kalush', country: 'Ukraine'}},
-            {id: 3, followed: false, photoUrl: '../../ava.png', fullName:'Oksana', status: 'I am a women', location: {city: 'Dnipro', country: 'Ukraine'}},
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            debugger
+            props.setUsers(response.data.items)
+        })
     }
 
     return (
@@ -16,7 +17,7 @@ const Users = (props) => {
             { props.users.map( u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl} alt='ava' className={style.userPhoto} />
+                            <img src={(u.photos.small) ? u.photoUrl : userPhoto} alt='ava' className={style.userPhoto} />
                         </div>
                         <div>
                             {(u.followed)?
@@ -26,12 +27,12 @@ const Users = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{'u.location.country'}</div>
+                            <div>{'u.location.city'}</div>
                         </span>
                     </span>
                 </div>) }
