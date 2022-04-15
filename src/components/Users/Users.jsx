@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./Users.module.css"
 import userPhoto from "../../assets/images/ava.png"
+import Preloader from "../../common/preloader/Preloader";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount/props.pageSize);
@@ -17,6 +18,7 @@ const Users = (props) => {
                                 key={p}>{p}</span>
             })}
         </div>
+        {props.isFetching ? <Preloader /> : (
         <div className={style.usersList}>
             { props.users.map( u => <div className={style.userItem} key={u.id}>
                 <span className={style.left}>
@@ -43,7 +45,7 @@ const Users = (props) => {
                     </span>
                 </span>
             </div>) }
-        </div>
+        </div>)}
     </div>)
 }
 
