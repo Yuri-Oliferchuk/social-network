@@ -2,8 +2,7 @@ import axios from "axios";
 import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
-import { followAC, setUsersAC, unfollowAC, currentPageAC, usersCountAC, fetchingAC } from "../../redux/users-reducer";
-import Preloader from "../../common/preloader/Preloader";
+import { follow, setUsers, unfollow, setCurrentPage, setUsersCount, toggleFetching } from "../../redux/users-reducer";
 
 class UsersAPIContainer extends React.Component {
     // constructor (props) {
@@ -57,31 +56,33 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId));
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(currentPageAC(pageNumber))
-        },
-        setUsersCount: (usersCount) => {
-            dispatch(usersCountAC(usersCount))
-        },
-        toggleFetching: () => {
-            dispatch(fetchingAC())
-        }
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         follow: (userId) => {
+//             dispatch(followAC(userId));
+//         },
+//         unfollow: (userId) => {
+//             dispatch(unfollowAC(userId));
+//         },
+//         setUsers: (users) => {
+//             dispatch(setUsersAC(users));
+//         },
+//         setCurrentPage: (pageNumber) => {
+//             dispatch(currentPageAC(pageNumber))
+//         },
+//         setUsersCount: (usersCount) => {
+//             dispatch(usersCountAC(usersCount))
+//         },
+//         toggleFetching: () => {
+//             dispatch(fetchingAC())
+//         }
 
-    }
-}
+//     }
+// }
 
-const UsersContainer = connect(
-    mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+const dispatchObject = {follow, unfollow, setUsers, 
+                        setCurrentPage, setUsersCount, toggleFetching}
 
-export default UsersContainer;
+const UsersContainer = connect(mapStateToProps, dispatchObject)(UsersAPIContainer)
+
+export default UsersContainer; 
