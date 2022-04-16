@@ -93,6 +93,10 @@ button:active:hover  {
     box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
 }
 
+.unfollow {
+    background-color: rgb(194, 55, 0);
+}
+
 .userPhoto {
     width: 60px;
 }

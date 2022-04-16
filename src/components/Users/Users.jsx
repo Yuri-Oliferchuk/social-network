@@ -3,6 +3,7 @@ import style from "./Users.module.css"
 import userPhoto from "../../assets/images/ava.png"
 import Preloader from "../../common/preloader/Preloader";
 import { NavLink } from "react-router-dom";
+import { followAPI } from "../../api/api";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount/props.pageSize);
@@ -31,10 +32,24 @@ const Users = (props) => {
                     </div>
                     <div className={style.buttonContainer}>
                         {(u.followed)
-                            ? <button className={style.item} 
-                                      onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                            : <button className={style.item} 
-                                      onClick={() => props.follow(u.id)}>Follow</button>}
+                            ? <button className={style.unfollow} 
+                                onClick={() => { 
+                                    followAPI.deleteUser(u.id)
+                                        .then(data => {
+                                            if (data.resultCode === 0) {
+                                                props.unfollow(u.id)
+                                        }
+                                    })
+                                }}>Unfollow</button>
+                            : <button onClick={() => { 
+                                    followAPI.postUser(u.id)
+                                        .then(data => {
+                                            if (data.resultCode === 0) {
+                                                props.follow(u.id)
+                                        }
+                                    })
+                                }}>Follow</button>
+                        }
                     </div>
                 </span>
                 <span className={style.right}>

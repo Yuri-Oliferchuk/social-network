@@ -1,33 +1,30 @@
-import axios from "axios";
 import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
 import { follow, setUsers, unfollow, setCurrentPage, setUsersCount, toggleFetching } from "../../redux/users-reducer";
+import { usersAPI } from "../../api/api";
 
 class UsersAPIContainer extends React.Component {
-    // constructor (props) {
-    //     super(props);
-    // }
 
     componentDidMount = () => {
         this.props.toggleFetching();
-        let url = `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`
-        axios.get(url).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        .then(data => {
             this.props.toggleFetching();
-            this.props.setUsers(response.data.items);
-            if (response.data.totalCount > 100) response.data.totalCount = 100
-            this.props.setUsersCount(response.data.totalCount);
+            this.props.setUsers(data.items);
+            if (data.totalCount > 100) data.totalCount = 100
+            this.props.setUsersCount(data.totalCount);
         })
     }
 
     onPageChanged = (page) => {
         this.props.toggleFetching();
         this.props.setCurrentPage(page);
-        let url = `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`
-            axios.get(url).then(response => {
-                this.props.toggleFetching();
-                this.props.setUsers(response.data.items)
-            })
+        usersAPI.getUsers(page, this.props.pageSize)
+        .then(data => {
+            this.props.toggleFetching();
+            this.props.setUsers(data.items)
+        })
     }
 
     render = () => {
