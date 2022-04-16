@@ -1,25 +1,31 @@
 import React from "react";
-import style from './ProfileInfo.module.css'
-import backgroundImg from '../../../assets/images/background.jpg'
+import style from './ProfileInfo.module.css';
+// import backgroundImg from '../../../assets/images/background.jpg';
+import ava from '../../../assets/images/ava.png';
 import Preloader from "../../../common/preloader/Preloader";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader />
     }
+
+    let profilePhoto = props.profile.photos.large;
+
     return (
         <div>
-            <div>
+            {/* <div>
                 <img className={style.contentImg} src={backgroundImg} alt='background'></img>
-            </div>
-            <div>
-                {props.profile.fullName}
-            </div>
-            <div>
-                <img  src={props.profile.photos.large} alt='me'></img>
-            </div>
+            </div> */}
             <div className={style.profileInfo}>
-                {props.profile.aboutMe}
+                <div className={style.profilePhoto}>
+                    <img src={ profilePhoto ? profilePhoto : ava } alt='me'></img>
+                </div>
+                <div className={style.profileName}>
+                    {props.profile.fullName}
+                </div>
+                <div className={style.profileStatus}>
+                    {props.profile.aboutMe}
+                </div>
             </div>
         </div>
     );

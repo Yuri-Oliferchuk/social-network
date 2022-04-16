@@ -1,12 +1,52 @@
 .header {
     grid-area: header;
-    display: flex;
+    display: grid;
+    grid-template-areas: "img login";
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    background-color: green;
+    background-color: rgb(173, 173, 173);
     border-radius: 5px;
 }
 
 .header img {
+    grid-area: img;
     width: 40px;
     margin-left: 10px;
+}
+
+.loginBlock {
+    grid-area: login;
+    display: grid;
+    justify-content: end;
+    align-items: center;
+}
+
+.loginBlock a {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    background-color: darkgreen;
+    padding: 8px;
+    margin: 5px;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: inset -3px -3px 10px rgba(0,0,0, 0.8);
+}
+
+.loginBlock a:active:hover  {
+    background-color: darkgreen;
+    box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
+}
+
+.login {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 150%;
+    margin-right: 20px;
 }
