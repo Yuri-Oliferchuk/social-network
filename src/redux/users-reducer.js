@@ -1,3 +1,5 @@
+import { followAPI, usersAPI } from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -78,12 +80,51 @@ const usersReducer = (state = initialState, action) => {
     }    
 }
 
-export const follow = (userId) => ({type: FOLLOW, userId})
-export const unfollow = (userId) => ({type: UNFOLLOW, userId})
+export const followSuccees = (userId) => ({type: FOLLOW, userId})
+export const unfollowSuccees = (userId) => ({type: UNFOLLOW, userId})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT, currentPage})
 export const setUsersCount = (usersCount) => ({type: SET_USERS_COUNT, usersCount})
 export const toggleFetching = () => ({type: TOGGLE_IS_FETCHING})
 export const toggleFollowing = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRES, isFetching, userId})
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(toggleFetching());
+        dispatch(setCurrentPage(currentPage));
+        usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleFetching());
+            dispatch(setUsers(data.items));
+            if (data.totalCount > 100) data.totalCount = 100
+            dispatch(setUsersCount(data.totalCount));
+        })}
+}
+
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowing(true, userId));
+        followAPI.deleteUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccees(userId))
+                }
+                dispatch(toggleFollowing(false, userId));      
+            })
+    }
+}
+
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowing(true, userId));
+        followAPI.postUser(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followSuccees(userId))
+            }
+            dispatch(toggleFollowing(false, userId));        
+        })
+    }
+}
 
 export default usersReducer;
