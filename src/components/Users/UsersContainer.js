@@ -2,6 +2,8 @@ import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
 import { setCurrentPage, getUsers, unfollow, follow} from "../../redux/users-reducer";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class UsersAPIContainer extends React.Component {
 
@@ -57,9 +59,9 @@ let mapStateToProps = (state) => {
 
 //     }
 // }
-
 const dispatchObject = {setCurrentPage, getUsers, unfollow, follow}
 
-const UsersContainer = connect(mapStateToProps, dispatchObject)(UsersAPIContainer)
-
-export default UsersContainer; 
+export default compose(
+    connect(mapStateToProps, dispatchObject),
+    withAuthRedirect 
+    )(UsersAPIContainer) 
