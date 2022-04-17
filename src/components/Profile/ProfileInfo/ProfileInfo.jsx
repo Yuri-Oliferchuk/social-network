@@ -3,6 +3,7 @@ import style from './ProfileInfo.module.css';
 // import backgroundImg from '../../../assets/images/background.jpg';
 import ava from '../../../assets/images/ava.png';
 import Preloader from "../../../common/preloader/Preloader";
+import ProfileStatus from "./ProfileStatus/ProfileStatus"
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -24,7 +25,7 @@ const ProfileInfo = (props) => {
                     {props.profile.fullName}
                 </div>
                 <div className={style.profileStatus}>
-                    {props.profile.aboutMe}
+                    <ProfileStatus aboutMe={props.profile.aboutMe} />
                 </div>
             </div>
         </div>
