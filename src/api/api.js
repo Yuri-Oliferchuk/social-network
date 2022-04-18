@@ -30,6 +30,14 @@ export const profileAPI = {
         userId = userId || 23437;
         return userInstance.get(`profile/${userId}`)
                            .then(response => response.data)
+    },
+    async getStatus(userId) {
+        const response = await userInstance.get(`profile/status/${userId || 23437}`)
+        return response.data
+    },
+    async updateStatus(statusData) {
+        const response = await userInstance.put(`profile/status`, {status: statusData})
+        return response
     }
 }
 

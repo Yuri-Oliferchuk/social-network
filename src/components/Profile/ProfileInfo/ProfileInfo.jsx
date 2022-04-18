@@ -11,7 +11,6 @@ const ProfileInfo = (props) => {
     }
 
     let profilePhoto = props.profile.photos.large;
-
     return (
         <div>
             {/* <div>
@@ -25,7 +24,8 @@ const ProfileInfo = (props) => {
                     {props.profile.fullName}
                 </div>
                 <div className={style.profileStatus}>
-                    <ProfileStatus aboutMe={props.profile.aboutMe} />
+                    <ProfileStatus status={props.status}
+                                   updateUserStatus={props.updateUserStatus} />
                 </div>
             </div>
         </div>
