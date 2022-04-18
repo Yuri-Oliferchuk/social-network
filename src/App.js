@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import Login from './components/Forms/login/Login';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import Login from './login/Login';
+
 
 const App = (props) => {
   return (

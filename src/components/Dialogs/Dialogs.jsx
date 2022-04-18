@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import ReduxAddMessageForm from "../Forms/AddMessageForm/AddMessageForm";
 import style from './Dialogs.module.css';
 
 const DialogItem = (props) =>{
@@ -21,13 +22,8 @@ const Dialogs = (props) => {
     let dialogsElements = props.state.dialogs.map(d => <DialogItem id={d.id} userName={d.name} key={d.id}/>)
     let messagesElements = props.state.messages.map(m => <Message message={m.message} key={m.id}/>)
 
-    const onAddMessage = () => {
-        props.addMessage();
-    }
-
-    const onUpdateNewMessageBody = (e) => {
-        let text = e.target.value;
-        props.updateNewMessageBody(text);
+    const addNewMessage = (value) => {
+        props.addMessage(value.newMessageBody);
     }
     
     return (
@@ -39,16 +35,7 @@ const Dialogs = (props) => {
                 <div>
                     {messagesElements}
                 </div>
-                <div>
-                    <div>
-                        <textarea value={props.state.newMessageBody} 
-                                  onChange={onUpdateNewMessageBody}
-                                  placeholder='Enter your message' />
-                    </div>
-                    <div>
-                        <button onClick={onAddMessage}>Add message</button>
-                    </div>
-                </div>
+                <ReduxAddMessageForm onSubmit={addNewMessage}/>
             </div>
         </div>
     );

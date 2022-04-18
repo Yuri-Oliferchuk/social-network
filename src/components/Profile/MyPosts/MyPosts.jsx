@@ -1,4 +1,5 @@
 import React from "react";
+import ReduxInputPostForm from "../../Forms/InputPostForm/InputPostForm";
 import style from './MyPosts.module.css'
 import Post from "./Post/Post";
 
@@ -7,23 +8,14 @@ const MyPosts = (props) => {
                                                    likesCount={p.likesCount} 
                                                    key={p.id} />)
 
-    const onPChange = (e) => {
-        let text = e.target.value;
-        props.onPostChange(text);
+    const onPostChange = (value) => {
+        props.addPost(value.newPostArea);
     }
 
     return (
         <div className={style.myPosts}>
             New post
-            <div>
-                <div>
-                    <textarea onChange={onPChange} 
-                              value={props.newPostText} />
-                </div>
-                <div>
-                    <button onClick={() => (props.addPost())}>Add post</button>
-                </div>
-            </div>
+            <ReduxInputPostForm onSubmit={onPostChange} />
             <div className={style.myPostName}>
                 My posts
             </div>
