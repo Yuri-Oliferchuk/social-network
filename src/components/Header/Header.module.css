@@ -48,5 +48,12 @@
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 150%;
+    margin-right: 10px;
+}
+
+.userName {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
     margin-right: 20px;
 }

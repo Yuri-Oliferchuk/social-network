@@ -1,1 +1,45 @@
+.loginForm {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 10px;
+    margin: 200px auto;
+}
 
+input {
+    font-size: 130%;
+    margin: 16px auto;
+}
+
+input .error {
+    font-size: 130%;
+    margin: 0px 0px;
+    color: green;
+}
+
+.loginButton {
+    margin-bottom: 20px;
+}
+
+.checkBoxContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0px;
+}
+
+.checkBoxContainer input {
+    transform:scale(1.5);   
+}
+
+.loginForm span {
+    color: red; 
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+
+}

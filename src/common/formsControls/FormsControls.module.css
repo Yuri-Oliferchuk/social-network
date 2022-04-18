@@ -3,6 +3,7 @@
 .formControl.error input, 
 .formControl.error textarea {
     border: 1px solid red; 
+    margin-top: 0px;
 }
 
 .formControl.error span {
