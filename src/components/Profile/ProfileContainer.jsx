@@ -9,8 +9,12 @@ import Profile from "./Profile"
 class ProfileContainer extends React.Component {
 
     componentDidMount = () => {
-        this.props.getUserProfile(this.props.router.params.userId)
-        this.props.getUserStatus(this.props.router.params.userId)
+        let userId = this.props.router.params.userId 
+        if(!userId) {
+            userId = this.props.authUserId;
+        }
+        this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
     }
 
     render = () => {            
@@ -25,6 +29,8 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(

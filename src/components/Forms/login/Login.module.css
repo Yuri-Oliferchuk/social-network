@@ -41,5 +41,11 @@ input .error {
     display: flex;
     justify-content: center;
     font-weight: bold;
+}
 
+
+.formSummaryError {
+    color: red;
+    padding: 5px;
+    font-weight: bold;
 }
