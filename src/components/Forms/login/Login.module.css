@@ -9,9 +9,14 @@
     margin: 200px auto;
 }
 
-input {
-    font-size: 130%;
+.loginForm input {
+    transform:scale(1.5);
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 5px;
     margin: 16px auto;
+}
+.loginForm input:focus{
+    outline: none;
 }
 
 input .error {
@@ -41,6 +46,7 @@ input .error {
     display: flex;
     justify-content: center;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 
