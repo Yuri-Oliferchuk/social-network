@@ -14,21 +14,21 @@ export const usersAPI = {
 }
 
 export const followAPI = {
-    deleteUser(userId) {
-        return userInstance.delete(`follow/${userId}`)
-                           .then(response => response.data)
+    async deleteUser(userId) {
+        const response = await userInstance.delete(`follow/${userId}`);
+        return response.data;
     },
 
-    postUser(userId) {
-        return userInstance.post(`follow/${userId}`, {})
-                           .then(response => response.data)
+    async postUser(userId) {
+        const response = await userInstance.post(`follow/${userId}`, {});
+        return response.data;
     }
 }
 
 export const profileAPI = {
-    getProfile(userId) {
-        return userInstance.get(`profile/${userId}`)
-                           .then(response => response.data)
+    async getProfile(userId) {
+        const response = await userInstance.get(`profile/${userId}`);
+        return response.data;
     },
     async getStatus(userId) {
         const response = await userInstance.get(`profile/status/${userId || 23437}`)
@@ -41,22 +41,22 @@ export const profileAPI = {
 }
 
 export const authAPI = {
-    setAuth() {
-        return userInstance.get(`auth/me`)
+    async setAuth() {
+        return await userInstance.get(`auth/me`)
     },
 
-    login(email, password, rememberMe = false) {
+    async login(email, password, rememberMe = false) {
         const data = {
             email: email,
             password: password,
             rememberMe: rememberMe,
             captcha: false
         }
-        return userInstance.post(`/auth/login`, data)
+        return await userInstance.post(`/auth/login`, data)
     },
 
-    logout() {
-        return userInstance.delete(`/auth/login`)
+    async logout() {
+        return await userInstance.delete(`/auth/login`)
     }
 }
  

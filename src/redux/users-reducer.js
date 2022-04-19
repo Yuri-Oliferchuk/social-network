@@ -1,12 +1,13 @@
 import { followAPI, usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/helper/object-helper";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT = 'SET_CURRENT';
-const SET_USERS_COUNT = 'SET_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING_PROGRES = 'TOGGLE_IS_FOLLOWING_PROGRES';
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT = 'users/SET_CURRENT';
+const SET_USERS_COUNT = 'users/SET_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRES = 'users/TOGGLE_IS_FOLLOWING_PROGRES';
 
 
 let initialState = {
@@ -23,29 +24,18 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if(u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: true}),
             }
         
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if(u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: false}),
             }
         
         case SET_USERS:
             return {
                 ...state,
-                // users: [...state.users, ...action.users]
                 users: [...action.users]
             }
 
@@ -76,7 +66,6 @@ const usersReducer = (state = initialState, action) => {
             }
 
         default: return state;
-
     }    
 }
 
@@ -88,43 +77,33 @@ export const setUsersCount = (usersCount) => ({type: SET_USERS_COUNT, usersCount
 export const toggleFetching = () => ({type: TOGGLE_IS_FETCHING})
 export const toggleFollowing = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRES, isFetching, userId})
 
-export const requestUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
         dispatch(toggleFetching());
         dispatch(setCurrentPage(currentPage));
-        usersAPI.getUsers(currentPage, pageSize)
-        .then(data => {
-            dispatch(toggleFetching());
-            dispatch(setUsers(data.items));
-            if (data.totalCount > 100) data.totalCount = 100
-            dispatch(setUsersCount(data.totalCount));
-        })}
+        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(toggleFetching());
+        dispatch(setUsers(data.items));
+
+        if (data.totalCount > 100) data.totalCount = 100;
+        dispatch(setUsersCount(data.totalCount));
 }
 
-export const unfollow = (userId) => {
-    return (dispatch) => {
+export const unfollow = (userId) => async (dispatch) => {
         dispatch(toggleFollowing(true, userId));
-        followAPI.deleteUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unfollowSuccees(userId))
-                }
-                dispatch(toggleFollowing(false, userId));      
-            })
-    }
+        const data = await followAPI.deleteUser(userId)
+        if (data.resultCode === 0) {
+            dispatch(unfollowSuccees(userId))
+        }
+        dispatch(toggleFollowing(false, userId));      
 }
 
-export const follow = (userId) => {
-    return (dispatch) => {
+export const follow = (userId) => async (dispatch) => {
         dispatch(toggleFollowing(true, userId));
-        followAPI.postUser(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(followSuccees(userId))
-            }
-            dispatch(toggleFollowing(false, userId));        
-        })
-    }
+        const data = await followAPI.postUser(userId)
+        if (data.resultCode === 0) {
+            dispatch(followSuccees(userId))
+        }
+        dispatch(toggleFollowing(false, userId));        
 }
 
 export default usersReducer;

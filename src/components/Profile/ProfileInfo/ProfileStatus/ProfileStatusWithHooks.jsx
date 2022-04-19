@@ -25,7 +25,7 @@ const ProfileStatusWithHooks = (props) => {
     return (
         <div>
             { !editMode &&
-                <div onDoubleClick={activateEditMode}>{props.status || "Enter your status"}</div>}
+                <div onDoubleClick={activateEditMode}>{props.status || "No status... :("}</div>}
             { editMode &&
                 <div>
                     <input onBlur={deactivateEditMode} 
