@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Users from "./Users";
 import withAuthRedirect from "../../common/withAuthRedirect/withAuthRedirect";
 import { connect } from "react-redux";
@@ -7,30 +7,30 @@ import { compose } from "redux";
 import { getCurrentPage, getFollowingInProgres, getIsFetching, 
          getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
 
-class UsersAPIContainer extends React.Component {
+const UsersAPIContainer = (props) => {
 
-    componentDidMount = () => { 
-        const { currentPage, pageSize } = this.props;
-        this.props.requestUsers(currentPage, pageSize); 
+    const { currentPage, pageSize, requestUsers } = props;
+    
+    useEffect(() => {
+        requestUsers(currentPage, pageSize);
+    }, [requestUsers, currentPage, pageSize])
+
+
+    const onPageChanged = (page) => { 
+        const { pageSize } = props;
+        props.requestUsers(page, pageSize); 
     }
 
-    onPageChanged = (page) => { 
-        const { pageSize } = this.props;
-        this.props.requestUsers(page, pageSize); 
-    }
-
-    render = () => {
-        return <Users totalUsersCount={this.props.totalUsersCount} 
-                    onPageChanged={this.onPageChanged}
-                    pageSize={this.props.pageSize}
-                    currentPage={this.props.currentPage}
-                    users={this.props.users}
-                    isFetching={this.props.isFetching}
-                    followingInProgres={this.props.followingInProgres}
-                    unfollow={this.props.unfollow}
-                    follow={this.props.follow}
-                />      
-    }
+    return <Users totalUsersCount={props.totalUsersCount} 
+                onPageChanged={onPageChanged}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                users={props.users}
+                isFetching={props.isFetching}
+                followingInProgres={props.followingInProgres}
+                unfollow={props.unfollow}
+                follow={props.follow}
+            />      
 }
 
 let mapStateToProps = (state) => {
