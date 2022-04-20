@@ -2,7 +2,7 @@ import React from "react";
 import style from './ProfileInfo.module.css';
 import ava from '../../../assets/images/ava.png';
 import Preloader from "../../../common/preloader/Preloader";
-import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatus";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {

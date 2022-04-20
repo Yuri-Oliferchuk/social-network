@@ -84,7 +84,7 @@ export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
         dispatch(toggleFetching());
         dispatch(setUsers(data.items));
 
-        if (data.totalCount > 100) data.totalCount = 100;
+        // if (data.totalCount > 100) data.totalCount = 100;
         dispatch(setUsersCount(data.totalCount));
 }
 

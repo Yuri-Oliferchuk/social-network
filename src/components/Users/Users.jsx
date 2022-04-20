@@ -6,16 +6,18 @@ import User from "./User/User";
 
 const Users = (props) => {
     return (<div>
-        <Paginator totalUsersCount={props.totalUsersCount} 
+        <Paginator totalItemsCount={props.totalUsersCount} 
                    pageSize={props.pageSize}
-                   onPageChanged={props.onPageChanged}
-                   currentPage={props.currentPage} />
+                   onPageChanged={props.onPageChanged} 
+                   currentPage={props.currentPage}
+                   portionSize={10} />
         {props.isFetching ? <Preloader /> : (
         <div className={style.usersList}>
             { props.users.map( u => <User user={u}
                                           followingInProgres={props.followingInProgres}
                                           unfollow={props.unfollow} 
-                                          follow={props.follow} />)}
+                                          follow={props.follow}
+                                          key={u.id} />)}
         </div>)}
     </div>)
 }
