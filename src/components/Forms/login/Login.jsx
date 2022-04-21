@@ -3,7 +3,7 @@ import style from "./Login.module.css"
 import { reduxForm } from "redux-form";
 import { createField, Input } from "../../../common/formsControls/FormsControls";
 import { maxLengthCreator, requiredField } from "../validators";
-import { login } from "../../../redux/auth-reducer";
+import { login, getCaptchaURL } from "../../../redux/auth-reducer";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -24,7 +24,16 @@ const LoginForm = (props) => {
                 <div className={style.formSummaryError}>
                     {props.error}
                 </div>
-            }
+            } 
+            <div className={style.captchaBlock}>
+                { props.captchaURL 
+                    ?<div>
+                        <img src={props.captchaURL} alt="captcha url" />
+                        {createField( "captcha", "Captcha", Input, [])}
+                    </div>
+                    :<div></div>
+                }  
+            </div>
             <div>
                 <button className={style.loginButton}>Login</button>
             </div>
@@ -36,7 +45,7 @@ const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
@@ -44,16 +53,18 @@ const Login = (props) => {
     }
     return (
         <div>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit}
+                            captchaURL={props.captchaURL} />
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaURL: state.auth.captchaURL,
     }
 }
 
 
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, {login, getCaptchaURL})(Login);

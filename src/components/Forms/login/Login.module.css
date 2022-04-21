@@ -55,3 +55,12 @@ input .error {
     padding: 5px;
     font-weight: bold;
 }
+
+.captchaBlock,
+.captchaBlock input,
+.captchaBlock img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
