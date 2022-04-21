@@ -4,7 +4,7 @@
     grid-template-areas: "img login";
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(0, 47, 158);
     border-radius: 5px;
 }
 
@@ -29,7 +29,7 @@
     width: 80px;
     font-family: 'Montserrat', sans-serif;
     justify-content: center;
-    background-color: darkgreen;
+    background-color: rgb(58, 72, 146);;
     padding: 8px;
     margin: 5px;
     margin-right: 20px;
@@ -38,7 +38,7 @@
 }
 
 .loginBlock a:active:hover  {
-    background-color: darkgreen;
+    background-color: rgb(58, 72, 146);
     box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
 }
 
@@ -56,4 +56,5 @@
     flex-direction: row;
     justify-content: end;
     margin-right: 20px;
+    color: white;
 }

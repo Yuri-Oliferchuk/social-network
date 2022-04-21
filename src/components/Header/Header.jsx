@@ -1,9 +1,14 @@
 import React from "react";
 import style from './Header.module.css';
 import logo from './../../assets/images/logo.png'
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 
 const Header = (props) => {
+    const onLogout = () => {
+        props.logout();
+        <Navigate to='/profile' />
+    }
+    
     return (
         <header className={style.header}>
             <img src={logo} alt='logo'></img>
@@ -13,7 +18,7 @@ const Header = (props) => {
                 </div>
                 : <div className={style.userName}>
                     <div className={style.login}>{props.login}</div>
-                    <button onClick={props.logout} >Logout</button>
+                    <button onClick={onLogout} >Logout</button>
                 </div>
             }
         </header>

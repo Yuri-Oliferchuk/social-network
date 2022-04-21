@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css';
 import Preloader from './common/preloader/Preloader';
@@ -31,6 +31,7 @@ class App extends React.Component {
         <div className='app-wrapper-content'>
           <Suspense fallback={<Preloader />}>
             <Routes>
+              <Route exact path='/' element={<Navigate to='/profile' />} />
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/profile/' element={<ProfileContainer />} />
               <Route path='/dialogs/*' element={<DialogsContainer />} />

@@ -2,7 +2,7 @@
     grid-area: nav;
     display: flex;
     flex-direction: column;
-    background-color: blue;
+    background-color: rgb(0, 30, 100);
     padding: 10px;
     border-radius: 5px;
 }
@@ -13,7 +13,7 @@
     font-family: 'Montserrat', sans-serif;
     justify-content: center;
     text-decoration: none;
-    background-color: darkgreen;
+    background-color: rgb(58, 72, 146);;
     padding: 10px;
     margin: 2px;
     line-height: 15px;
@@ -22,8 +22,13 @@
     user-select: none;
 }
 
+.item a:hover {
+    background-color: rgb(27, 34, 71);
+    box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
+}
+
 .item a.active {
     color: gold;
-    background-color: darkolivegreen;
+    background-color: rgb(27, 34, 71);
     box-shadow: inset 3px 3px 10px rgba(0,0,0, 0.8);
 }
