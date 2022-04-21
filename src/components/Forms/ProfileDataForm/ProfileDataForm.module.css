@@ -1,0 +1,24 @@
+.mainForm {
+    grid-area: status;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.saveButton {
+    width: 150px;
+}
+
+.isLooking {
+    display: flex;
+    flex-direction: row;
+}
+
+.checkBoxContainer {
+    transform:scale(1.5);
+}
+
+.formSummaryError {
+    color: red;
+}
