@@ -1,4 +1,4 @@
-import axios from "axios";
+const axios = require('axios').default;
 
 const userInstance = axios.create({
     withCredentials: true,
@@ -7,42 +7,42 @@ const userInstance = axios.create({
 })
 
 export const usersAPI = {
-    async getUsers(currentPage, pageSize) {
+    async getUsers(currentPage: any, pageSize: any) {
         const response = await userInstance.get(`users?count=${pageSize}&page=${currentPage}`);
         return response.data;
     },                               
 }
 
 export const followAPI = {
-    async deleteUser(userId) {
+    async deleteUser(userId: any) {
         const response = await userInstance.delete(`follow/${userId}`);
         return response.data;
     },
 
-    async postUser(userId) {
+    async postUser(userId: any) {
         const response = await userInstance.post(`follow/${userId}`, {});
         return response.data;
     }
 }
 
 export const profileAPI = {
-    async getProfile(userId) {
+    async getProfile(userId: any) {
         const response = await userInstance.get(`profile/${userId}`);
         return response.data;
     },
-    async getStatus(userId) {
+    async getStatus(userId: any) {
         const response = await userInstance.get(`profile/status/${userId || 23437}`)
         return response.data
     },
-    async updateStatus(statusData) {
+    async updateStatus(statusData: any) {
         const response = await userInstance.put(`profile/status`, {status: statusData})
         return response
     },
-    async updateData(userData) {
+    async updateData(userData: any) {
         const response = await userInstance.put(`/profile`, userData)
         return response
     },
-    async savePhoto(photoFile) {
+    async savePhoto(photoFile: any) {
         const formData = new FormData();
         formData.append("image", photoFile);
         const response = await userInstance.post(`/profile/photo`, formData, {
@@ -59,7 +59,7 @@ export const authAPI = {
         return await userInstance.get(`auth/me`)
     },
 
-    async login(email, password, rememberMe = false, captcha = false) {
+    async login(email: any, password: any, rememberMe: any = false, captcha: any = false) {
         const data = {
             email: email,
             password: password,

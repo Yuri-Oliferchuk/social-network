@@ -6,6 +6,7 @@ import './App.css';
 import Preloader from './common/preloader/Preloader';
 import withRouter from './common/withRouter/withRouter';
 import Login from './components/Forms/login/Login';
+import Music from './components/Music/Music';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import { initializeApp } from "./redux/app-reducer";
@@ -35,8 +36,9 @@ class App extends React.Component {
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/profile/' element={<ProfileContainer />} />
               <Route path='/dialogs/*' element={<DialogsContainer />} />
-              <Route path='/users/*' element={<UsersContainer />} />
+              <Route path='/users/*' element={<UsersContainer pageTitle="Hello" />} />
               <Route path='/login/' element={<Login />} />
+              <Route path='/music/' element={<Music />} />
             </Routes>
           </Suspense>
         </div>

@@ -1,13 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import Users from "./Users";
-import withAuthRedirect from "../../common/withAuthRedirect/withAuthRedirect";
 import { connect } from "react-redux";
-import { setCurrentPage, requestUsers, unfollow, follow} from "../../redux/users-reducer";
+import { requestUsers, unfollow, follow} from "../../redux/users-reducer";
+//@ts-ignore
 import { compose } from "redux";
 import { getCurrentPage, getFollowingInProgres, getIsFetching, 
          getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
+import { UserType } from "../../types/types";
+import { AppStoreType } from "../../redux/redux-store";
 
-const UsersAPIContainer = (props) => {
+type MapStatePropsType = {
+    currentPage: number 
+    pageSize: number
+    totalUsersCount: number
+    isFetching: boolean
+    users: Array<UserType>
+    followingInProgres: Array<number>
+}
+
+type MapDispatchPropsType = {
+    requestUsers: (currentPage: number, pageSize: number) => any
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
+
+type OwnPropsType = {
+    pageTitle: string
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+const UsersAPIContainer: FC<PropsType> = (props) => {
 
     const { currentPage, pageSize, requestUsers } = props;
     
@@ -16,7 +39,7 @@ const UsersAPIContainer = (props) => {
     }, [requestUsers, currentPage, pageSize])
 
 
-    const onPageChanged = (page) => { 
+    const onPageChanged = (page: number): void => { 
         const { pageSize } = props;
         props.requestUsers(page, pageSize); 
     }
@@ -30,10 +53,11 @@ const UsersAPIContainer = (props) => {
                 followingInProgres={props.followingInProgres}
                 unfollow={props.unfollow}
                 follow={props.follow}
+                pageTitle={props.pageTitle}
             />      
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStoreType): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -44,9 +68,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-const dispatchObject = {setCurrentPage, requestUsers, unfollow, follow}
-
 export default compose(
-    connect(mapStateToProps, dispatchObject),
-    withAuthRedirect 
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStoreType>
+    (mapStateToProps, {unfollow, follow, requestUsers}),
     )(UsersAPIContainer) 

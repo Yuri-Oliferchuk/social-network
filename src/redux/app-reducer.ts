@@ -2,11 +2,15 @@ import { setAuthorisation } from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = 'app-reducer/INITIALIZED_SUCCESS';
 
-let initialState = {
+export type InitialStateType = {
+    initialized: boolean
+}
+
+let initialState: InitialStateType = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any):InitialStateType => {
     switch(action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -18,9 +22,13 @@ const appReducer = (state = initialState, action) => {
     }    
 }
 
-export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})
+type initializedSuccessActionType = {
+    type: typeof INITIALIZED_SUCCESS
+}
 
-export const initializeApp = () => async (dispatch) => {
+export const initializedSuccess = ():initializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
+
+export const initializeApp = () => async (dispatch: any) => {
     await dispatch(setAuthorisation())
     dispatch(initializedSuccess())
 }

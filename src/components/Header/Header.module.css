@@ -44,7 +44,7 @@
 
 .login {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 150%;
@@ -54,7 +54,7 @@
 .userName {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     margin-right: 20px;
     color: white;
 }
