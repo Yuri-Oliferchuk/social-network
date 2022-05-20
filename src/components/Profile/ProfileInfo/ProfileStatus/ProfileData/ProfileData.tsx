@@ -1,8 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import ProfileStatus from "../ProfileStatus";
 import style from "../ProfileData/ProfileData.module.css"
 
-const ProfileData = (props) => {
+export type ProfileDataPropsType = {
+    goToEditMode: () => void,
+    profile: {
+        fullName: string,
+        aboutMe: string,
+        lookingForAJob: boolean,
+        lookingForAJobDescription: string,
+        contacts: Array<string>,
+    }
+    profileinformation: string,
+    status: string,
+    updateUserStatus: (status: string) => void,
+    isOwner: boolean,
+}
+
+const ProfileData: FC<ProfileDataPropsType> = (props) => {
     return (
         <>
             {props.isOwner && <div><button className={style.editModeButton} onClick={props.goToEditMode}>Edite mode</button></div>}

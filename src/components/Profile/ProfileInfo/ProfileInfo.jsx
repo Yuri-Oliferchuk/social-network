@@ -5,6 +5,8 @@ import Preloader from "../../../common/preloader/Preloader";
 import ProfileData from "./ProfileStatus/ProfileData/ProfileData";
 import ProfileDataForm from "../../Forms/ProfileDataForm/ProfileDataForm";
 
+
+
 const ProfileInfo = (props) => {
     const [editMode, setEditMode] = useState(false);
 
@@ -36,12 +38,14 @@ const ProfileInfo = (props) => {
                         <input type={"file"} onChange={onMainPhotoSelected}></input>
                     }
                 </div>
-                { !editMode ?
+                { !editMode 
+                ?
                 <ProfileData profile={props.profile}
                              status={props.status}
                              isOwner={props.isOwner}
                              updateUserStatus={props.updateUserStatus}
-                             goToEditMode={() => {setEditMode(true)}} />:
+                             goToEditMode={() => {setEditMode(true)}} />
+                :
                 <ProfileDataForm initialValues={props.profile}
                                  profile={props.profile}
                                  status={props.status}
