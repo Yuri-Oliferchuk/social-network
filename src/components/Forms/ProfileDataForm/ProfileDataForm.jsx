@@ -3,7 +3,7 @@ import { reduxForm } from "redux-form";
 import { createField, Input, Textarea } from "../../../common/formsControls/FormsControls";
 import { maxLengthCreator, requiredField } from "../validators";
 import style from "./ProfileDataForm.module.css"
-
+ 
 const fieldLength20 = maxLengthCreator(20);
 
 const ProfileDataForm = (props) => {
