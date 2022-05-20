@@ -1,4 +1,3 @@
-//@ts-ignore
 import { createSelector } from "reselect"
 import { UserType } from "../types/types"
 import { AppStoreType } from "./redux-store"

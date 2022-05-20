@@ -1,18 +1,13 @@
 import { setAuthorisation } from "./auth-reducer";
+import { BaseThunkType, InferActionsTypes } from "./redux-store";
 
-const INITIALIZED_SUCCESS = 'app-reducer/INITIALIZED_SUCCESS';
-
-export type InitialStateType = {
-    initialized: boolean
-}
-
-let initialState: InitialStateType = {
+let initialState = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action: any):InitialStateType => {
+const appReducer = (state = initialState, action: ActionsTypes):InitialStateType => {
     switch(action.type) {
-        case INITIALIZED_SUCCESS:
+        case 'app-reducer/INITIALIZED_SUCCESS':
             return {
                 ...state,
                 initialized: true
@@ -22,15 +17,16 @@ const appReducer = (state = initialState, action: any):InitialStateType => {
     }    
 }
 
-type initializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS
+export const actions = {
+    initializedSuccess: () => ({type: 'app-reducer/INITIALIZED_SUCCESS'} as const)
 }
 
-export const initializedSuccess = ():initializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
-
-export const initializeApp = () => async (dispatch: any) => {
+export const initializeApp = ():BaseThunkType => async (dispatch) => {
     await dispatch(setAuthorisation())
-    dispatch(initializedSuccess())
+    dispatch(actions.initializedSuccess())
 }
 
 export default appReducer;
+
+type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
