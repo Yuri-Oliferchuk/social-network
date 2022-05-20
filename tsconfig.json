@@ -1,14 +1,27 @@
 {
-    "compilerOptions": {
-      "target": "ES2015",
-      "strict": false,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "jsx": "react",
-      "allowSyntheticDefaultImports": true,
-      "moduleResolution": "node"
-    },
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Recommended"
-  }
+  "compilerOptions": {
+    "target": "ES2015",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended",
+  "include": [
+    "src"
+  ]
+}

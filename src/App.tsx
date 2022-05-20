@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css';
 import Preloader from './common/preloader/Preloader';
-import withRouter from './common/withRouter/withRouter';
 import Login from './components/Forms/login/Login';
 import Music from './components/Music/Music';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -12,11 +11,13 @@ import Navbar from './components/Navbar/Navbar';
 import { initializeApp } from "./redux/app-reducer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
+import { AppStoreType } from './redux/redux-store';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+type MapPropsType = ReturnType< typeof mapStateToProps >
+type DispatchPropsType = {initializeApp: () => void}
 
-
-class App extends React.Component {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
   
   componentDidMount = () => { this.props.initializeApp(); }
 
@@ -32,7 +33,7 @@ class App extends React.Component {
         <div className='app-wrapper-content'>
           <Suspense fallback={<Preloader />}>
             <Routes>
-              <Route exact path='/' element={<Navigate to='/profile' />} />
+              <Route path='/' element={<Navigate to='/profile' />} />
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/profile/' element={<ProfileContainer />} />
               <Route path='/dialogs/*' element={<DialogsContainer />} />
@@ -46,13 +47,12 @@ class App extends React.Component {
   )}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStoreType) => {
   return {
     initialized: state.app.initialized
   }
 }
 
-export default compose(
-  withRouter,                              // for old React wersion, when router no work
+export default compose<React.ComponentType>(
   connect(mapStateToProps, { initializeApp })
 )(App);;

@@ -38,11 +38,11 @@ export const actions = {
 
 export default dialogsReducer;
 
-type Dialog = {
+export type Dialog = {
     id: number
     name: string
 }
-type Messages = {
+export type Messages = {
     id: number
     message: string
 }

@@ -3,10 +3,44 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import withRouter from "../../common/withRouter/withRouter";
 import { getUserProfile, getUserStatus, updateUserStatus, savePhoto, putData } from "../../redux/profile-reducer";
+import { AppStoreType } from "../../redux/redux-store";
+import { PhotosType, ProfileType } from "../../types/types";
+import { ProfileFieldsType } from "../Forms/ProfileDataForm/ProfileDataForm";
 import Profile from "./Profile"
 
+type MapStatePropsType = {
+    profile: {
+        fullName: string,
+        aboutMe: string,
+        lookingForAJob: boolean,
+        lookingForAJobDescription: string,
+        contacts: Array<string>,
+        photos: PhotosType,
+    } 
+    status: string
+    authUserId: number
+    isAuth: boolean
+}
 
-class ProfileContainer extends React.Component {
+type MapDispatchPropsType = {
+    getUserProfile: (id: number) => void
+    getUserStatus: (id: number) => void 
+    updateUserStatus: (status: string) => void
+    savePhoto: (file: File) => void 
+    putData: (data: ProfileFieldsType) => Promise<any>
+}
+
+type OwnPropsType = {
+    router: {
+        params: {
+            userId: number
+        }
+    }
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+class ProfileContainer extends React.Component<PropsType> {
     refreshProfile() {
         let userId = this.props.router.params.userId 
         if(!userId) {
@@ -20,7 +54,7 @@ class ProfileContainer extends React.Component {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: Readonly<PropsType>) {
         if(this.props.router.params.userId !== prevProps.router.params.userId )
         this.refreshProfile()
     }
@@ -38,7 +72,7 @@ class ProfileContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStoreType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authUserId: state.auth.id,

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import style from './Header.module.css';
 import logo from './../../assets/images/logo.png'
 import { Navigate, NavLink } from "react-router-dom";
 
-const Header = (props) => {
+type Props = {
+    logout: () => void,
+    isAuth: boolean,
+    login: string,
+}
+
+const Header: FC<Props> = (props) => {
     const onLogout = () => {
         props.logout();
         <Navigate to='/profile' />

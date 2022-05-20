@@ -1,8 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import style from './Post.module.css'
 import ava from '../../../../assets/images/ava.png'
 
-const Post = (props) => {
+type Props = {
+    message: string,
+    likesCount: number,
+}
+
+const Post: FC<Props> = (props) => {
     return (
         <div className={style.item}>
             <img src={ava} alt='avatar'></img>

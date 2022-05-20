@@ -13,4 +13,4 @@ export const actions = {}
 export default sidebarReducer;
 
 type InitialState = typeof initialState;
-type ActionTypes = InferActionsTypes<typeof actions>
+type ActionTypes = InferActionsTypes<typeof actions> | any

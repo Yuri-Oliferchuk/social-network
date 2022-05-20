@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import { InjectedFormProps, reduxForm } from "redux-form";
 import { createField, Input, Textarea } from "../../../common/formsControls/FormsControls";
-import { ProfileType } from "../../../types/types";
+import { PhotosType } from "../../../types/types";
 import { maxLengthCreator, requiredField } from "../validators";
 import style from "./ProfileDataForm.module.css"
  
 const fieldLength20 = maxLengthCreator(20);
 
-type ProfileFieldsType = {
+export type ProfileFieldsType = {
     fullName: string,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
@@ -15,9 +15,17 @@ type ProfileFieldsType = {
     contacts: Array<string>
 
 }
+
 type ProfileFieldsProps = {
-    // initialValues={props.profile}
-    profile: ProfileType,
+    initialValues: Partial<ProfileFieldsType>,
+    profile: {
+        fullName: string,
+        aboutMe: string,
+        lookingForAJob: boolean,
+        lookingForAJobDescription: string,
+        contacts: Array<string>,
+        photos: PhotosType,
+    },
     status: string,
     isOwner: boolean,
     updateUserStatus: (status: string) => void,

@@ -11,7 +11,6 @@ export type ProfileDataPropsType = {
         lookingForAJobDescription: string,
         contacts: Array<string>,
     }
-    profileinformation: string,
     status: string,
     updateUserStatus: (status: string) => void,
     isOwner: boolean,

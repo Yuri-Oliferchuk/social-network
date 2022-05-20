@@ -1,14 +1,25 @@
-import React from "react";
-import ReduxInputPostForm from "../../Forms/InputPostForm/InputPostForm";
+import React, { FC } from "react";
+import ReduxInputPostForm, { InputPostFormValuesType } from "../../Forms/InputPostForm/InputPostForm";
 import style from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-const MyPosts = (props) => {
+type Post = {
+    message: string,
+    likesCount: number,
+    id: number,
+}
+type Props = {
+    posts: Array<Post>
+    addPost: (post: string) => void,
+
+}
+
+const MyPosts: FC<Props> = (props) => {
     let postsElements = props.posts.map(p => <Post message={p.message} 
                                                    likesCount={p.likesCount} 
                                                    key={p.id} />)
 
-    const onPostChange = (value) => {
+    const onPostChange = (value: InputPostFormValuesType) => {
         props.addPost(value.newPostArea);
     }
 
