@@ -1,0 +1,12 @@
+.userSearchForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.userSearchForm input, select {
+    transform:scale(1.5); 
+    margin-right: 90px;
+}

@@ -10,7 +10,11 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  followingInProgres: [] as Array<number>
+  followingInProgres: [] as Array<number>,
+  filter: {
+    term: '',
+    friend: null as null | boolean,
+  }
 }
 
 const usersReducer = (state = initialState, action: ActionTypes): InitialState => {
@@ -56,6 +60,12 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialState =
         ...state,
         followingInProgres: action.isFetching ? [...state.followingInProgres, action.userId] : state.followingInProgres.filter((id) => id !== action.userId)
       }
+    
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload
+      }
 
     default:
       return state
@@ -67,17 +77,19 @@ export const actions = {
   unfollowSuccees: (userId: number) => ({ type: 'UNFOLLOW', userId } as const),
   setUsers: (users: Array<UserType>) => ({ type: 'SET_USERS', users } as const),
   setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT', currentPage } as const),
+  setFilter: (filter: FilterType) => ({ type: 'SET_FILTER', payload: filter } as const),
   setUsersCount: (usersCount: number) => ({ type: 'SET_USERS_COUNT', usersCount } as const),
   toggleFetching: () => ({ type: 'TOGGLE_IS_FETCHING' } as const),
   toggleFollowing: (isFetching: boolean, userId: number) => ({ type: 'TOGGLE_IS_FOLLOWING_PROGRES', isFetching, userId } as const)
 }
 
 export const requestUsers =
-  (currentPage: number, pageSize: number): BaseThunkType =>
+  (currentPage: number, pageSize: number, filter: FilterType): BaseThunkType =>
   async (dispatch) => {
     dispatch(actions.toggleFetching())
     dispatch(actions.setCurrentPage(currentPage))
-    const data = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(actions.setFilter(filter))
+    const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(actions.toggleFetching())
     dispatch(actions.setUsers(data.items))
 
@@ -110,4 +122,5 @@ export const follow =
 export default usersReducer
 
 export type InitialState = typeof initialState
+export type FilterType = typeof initialState.filter
 type ActionTypes = InferActionsTypes<typeof actions>

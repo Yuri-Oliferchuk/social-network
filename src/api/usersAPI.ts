@@ -1,3 +1,4 @@
+import { FilterType } from '../redux/users-reducer'
 import { UserType } from '../types/types'
 import { userInstance } from './api'
 
@@ -9,8 +10,8 @@ export type UserResponseType = {
 }
 
 export const usersAPI = {
-  async getUsers(currentPage: any, pageSize: any) {
-    const response = await userInstance.get<UserResponseType>(`users?count=${pageSize}&page=${currentPage}`)
+  async getUsers(currentPage: number, pageSize: number, term: string = '', friend: boolean | null = null) {
+    const response = await userInstance.get<UserResponseType>(`users?count=${pageSize}&page=${currentPage}&term=${term}` + (friend===null? '' : `&friend=${friend}`))
     return response.data
   }
 }
