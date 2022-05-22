@@ -109,5 +109,5 @@ export const follow =
 
 export default usersReducer
 
-type InitialState = typeof initialState
+export type InitialState = typeof initialState
 type ActionTypes = InferActionsTypes<typeof actions>

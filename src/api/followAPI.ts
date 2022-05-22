@@ -1,6 +1,6 @@
 import { ResultCodesEnum, userInstance } from './api'
 
-type FollowingResponseType = {
+export type FollowingResponseType = {
   data: {}
   resultCode: ResultCodesEnum
   messages: string
