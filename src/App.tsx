@@ -10,9 +10,9 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import { initializeApp } from "./redux/app-reducer";
 import ProfileContainer from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
 import { AppStoreType } from './redux/redux-store';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import { Users } from './components/Users/Users';
 
 type MapPropsType = ReturnType< typeof mapStateToProps >
 type DispatchPropsType = {initializeApp: () => void}
@@ -37,7 +37,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/profile/' element={<ProfileContainer />} />
               <Route path='/dialogs/*' element={<DialogsContainer />} />
-              <Route path='/users/*' element={<UsersContainer pageTitle="Hello" />} />
+              <Route path='/users/*' element={<Users />} />
               <Route path='/login/' element={<Login />} />
               <Route path='/music/' element={<Music />} />
             </Routes>
