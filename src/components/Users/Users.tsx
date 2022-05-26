@@ -7,6 +7,14 @@ import { UsersSearchForm } from '../Forms/UserSearchForm/UsersSearchForm'
 import { FilterType, follow, requestUsers, unfollow } from '../../redux/users-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentPage, getFollowingInProgres, getIsFetching, getPageSize, getTotalUsersCount, getUserFilter, getUsers } from '../../redux/users-selectors'
+import { useLocation, useNavigate } from 'react-router-dom'
+import queryString from 'query-string'
+
+type QueryTypes = {
+  page?: string, 
+  term?: string, 
+  friend?: string
+}
 
 export const Users = () => {
   const totalUsersCount = useSelector(getTotalUsersCount)
@@ -18,10 +26,32 @@ export const Users = () => {
   const followingInProgres = useSelector(getFollowingInProgres)
 
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
+  const location = useLocation()
+  
   useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter))
+    const parsed = queryString.parse(location.search) as QueryTypes
+
+    let actualPage = currentPage
+    if(parsed.page) actualPage = Number(parsed.page)
+    let actualFilter = filter
+    if(parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+    if(parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === 'null'? null: parsed.friend==='true'?true:false}
+
+    dispatch(requestUsers(actualPage, pageSize, actualFilter))
   }, [])
+  
+  useEffect(() => {
+    const querySearch = {} as QueryTypes
+    if(!!filter.term) querySearch.term = filter.term
+    if(filter.friend !== null) querySearch.friend = String(filter.friend)
+    if(currentPage !== 1) querySearch.page = String(currentPage)
+
+    navigate({
+      pathname: '/users',
+      search: queryString.stringify(querySearch)
+    })
+  }, [filter, currentPage])
 
   const onPageChanged = (page: number): void => {
     dispatch(requestUsers(page, pageSize, filter))
